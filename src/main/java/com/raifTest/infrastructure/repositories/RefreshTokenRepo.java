@@ -104,7 +104,6 @@ public class RefreshTokenRepo implements IRefreshTokenRepo {
         return true;
     }
 
-    //TODO прописать
     @Override
     public boolean delteTokensByExpirationDate(Date today) {
         Session session = sessionFactory.openSession();

@@ -100,7 +100,6 @@ public class AccountService implements IAccountService {
 
             // номер счета сгенерирован
 
-            // TODO дописать
             Account account = new Account(
                     sb.toString(),
                     new Customer(creation.getCustomerId()),
@@ -115,7 +114,6 @@ public class AccountService implements IAccountService {
 
     @Override
     @Async
-    //TODO Прописать удаление(Пока хз как корректно сделать)
     // Пока на счету есть хотя бы 0.01 единица денег, то нельзя удалить счет
     public CompletableFuture<AccountDeleteResponse> deleteAccount(String serial, UUID customerId) {
 
@@ -193,8 +191,6 @@ public class AccountService implements IAccountService {
         });
     }
 
-    // TODO Прописать проверки!
-    // TODO Проверить проверки!
     @Override
     @Async
     public CompletableFuture<AccountTransferResponse> transferFromAccountToAccount(String serialFrom,
@@ -281,7 +277,6 @@ public class AccountService implements IAccountService {
         return response;
     }
 
-    // TODO Прописать проверки!
     @Override
     @Async
     public CompletableFuture<AccountTransferResponse> refilAccountBalance(String serialNumber, double amount, UUID customerId) {
@@ -313,7 +308,6 @@ public class AccountService implements IAccountService {
         });
     }
 
-    // TODO Прописать проверки!
     @Override
     @Async
     public CompletableFuture<AccountTransferResponse> withdrawAccountBalance(String serialNumber, double amount, UUID customerId) {

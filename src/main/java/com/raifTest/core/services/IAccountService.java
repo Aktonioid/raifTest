@@ -12,7 +12,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public interface IAccountService {
-    // TODO Мб добавить javadoc
     public CompletableFuture<AccountDto> getAccountBySerialNumber(String serial, UUID customerId);
     public CompletableFuture<List<AccountDto>> getAllAccountsByCustomerId(UUID customerId);
     public CompletableFuture<List<AccountDto>> getAccountsByCreationDateAndCustomer(UUID customerId, Date date);

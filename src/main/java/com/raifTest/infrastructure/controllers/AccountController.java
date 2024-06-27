@@ -39,7 +39,6 @@ public class AccountController {
         this.jwtService = jwtService;
     }
 
-    //TODO переписать контроллер на jwt
 
     @GetMapping("/{serial}")
     public ResponseEntity<AccountDto> getAccountBySerialNumber(@PathVariable String serial,
@@ -131,8 +130,7 @@ public class AccountController {
         return ResponseEntity.ok(accounts.get());
     }
 
-    //TODO Подумать что можно отправить в качестве ответа, мб просто в header запихивать инфу о причине ошибки, допустим,
-    // если не хватает денег, то в header ответа записать "not_enough_money":"true". Что-то в этом роде
+
     // переводимые средства округляются до двух знаков после запятой, это в сервисе происходит
     @PutMapping("/transfers")
     public  ResponseEntity<Boolean> transferFromAccountToAccount(String serialFrom,
@@ -179,7 +177,6 @@ public class AccountController {
     }
 
     @PutMapping("/refils")
-    //TODO Округлять amount пополнения
     public ResponseEntity<Boolean> refilAccountBalance(String serial,
                                                        double amount,
                                                        @NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
@@ -213,7 +210,7 @@ public class AccountController {
     }
 
     @PutMapping("/withdraws")
-    //TODO Округлять amount вывода
+    //Округлять amount вывода
     public ResponseEntity<Boolean> withdrawAccountBalance(String serial,
                                                           double amount,
                                                           @NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
