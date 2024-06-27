@@ -211,6 +211,27 @@ public class CustomerController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping()
+    public ResponseEntity<CustomerDto> getCurrentCustomer(@NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
+        Cookie accessCookie = Arrays
+                .stream(request.getCookies())
+                .filter(c -> c.getName().equals("access"))
+                .findFirst().get();
+
+
+        UUID customerId = UUID.fromString(jwtService.extractTokenId(accessCookie.getValue()));
+
+        CompletableFuture<CustomerDto> result = customerService.getCustomerById(customerId);
+
+        result.join();
+
+        if(result.get() == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(result.get());
+    }
+
     private void setCookieToEmpty(Cookie accessCookie, Cookie refreshCookie,HttpServletResponse response){
         refreshCookie = new Cookie("refresh", null);
         refreshCookie.setHttpOnly(true);

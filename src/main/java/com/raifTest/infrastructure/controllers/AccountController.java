@@ -43,7 +43,7 @@ public class AccountController {
 
     @GetMapping("/{serial}")
     public ResponseEntity<AccountDto> getAccountBySerialNumber(@PathVariable String serial,
-                                                                                  @NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
+                                                               @NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
             Cookie accessCookie = Arrays
                     .stream(request.getCookies())
                     .filter(c -> c.getName().equals("access"))
@@ -184,6 +184,10 @@ public class AccountController {
                                                        double amount,
                                                        @NonNull  HttpServletRequest request) throws ExecutionException, InterruptedException {
 
+        if(amount < 0.01){
+            return ResponseEntity.badRequest().header("impossible_transaction","true").build();
+        }
+
         Cookie accessCookie = Arrays
                 .stream(request.getCookies())
                 .filter(c -> c.getName().equals("access"))
@@ -221,6 +225,10 @@ public class AccountController {
 
 
         UUID customerId = UUID.fromString(jwtService.extractId(accessCookie.getValue()));
+
+        if(amount < 0.01){
+            return ResponseEntity.badRequest().header("impossible_transaction","true").build();
+        }
 
         AccountTransferResponse response = accountService.withdrawAccountBalance(serial,amount, customerId).get();
 

@@ -39,7 +39,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(req ->{
             req.requestMatchers("/accounts/**").authenticated();
-            req.requestMatchers("/tests/**").authenticated();
+            req.requestMatchers("/customers/delete");
             req.anyRequest().permitAll();
 
         });
